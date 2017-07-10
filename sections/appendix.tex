@@ -1,0 +1,30 @@
+\chapter*{Összefoglalás}
+\addcontentsline{toc}{chapter}{Összefoglalás}  
+
+\Aref{sec:classical_DMP}. részben ismeretetett eredmények alapján az elliptikus Dirichlet-peremmel ellátott feladatok megoldásánál, ha a megoldást lineáris végeselemekkel közelítjük, akkor ismerünk elégséges feltételeket a klasszikus diszkrét maximum-elv teljesülésére. 2 dimenziós esetben például, ha háromszögrácsot alkalmazunk, elegendő biztosítanunk, hogy a rács megfelelő finomságú és egyenletesen hegyesszögű legyen, és ha nincs a feladatban visszacsatolás, akkor a derékszögek is megengedettek. Ezek a feltételek viszonylag könnyen teljesíthetők a számítások során.
+
+\Aref{sec:general_DMP}. szakaszban az 1 dimenziós Poisson-egyenletet vizsgáltuk. Láthattuk, hogy a klasszikus diszkrét maximum-elv nem terjeszthető ki a magasabbrendű végeselemes közelítések esetére, mert a forrásfüggvény előjele ekkor nem határozza meg a diszkrét feladat jobb oldalának előjelét. A probléma kiküszöbölésére bevezettük a diszkrét maximum-elv általánosított alakját, ami a forrásfüggvény helyett annak a végeselemes altérre vett $L^2$-vetületére szab előjelfeltételt. Ezután 1 dimenzióban megmutattuk, hogy bizonyos feltételeket kielégítő kvadratúraformulák létezése elégséges feltétele az általánosított diszkrét maximum-elv teljesülésének magasabbrendű közelítésekre.
+
+Nyitott kérdés, hogy az általánosított diszkrét maximum-elv kiterjeszthető-e magasabb dimenzióra és általánosabb elliptikus feladatokra. Mivel a gyakorlatban van igény a magasabbrendű közelítések alkalmazására, fontos lenne a maximum-elv kiterjeszthetőségének vizsgálata. 
+
+\chapter*{Köszönetnyilvánítás}
+\addcontentsline{toc}{chapter}{Köszönetnyilvánítás}
+
+Ezúton köszönetet mondani konzulensemnek, Karátson Jánosnak a segítségéért, türelméért, és hogy munkámat alaposan és kritikusan ellenőrizte. 
+
+Továbbá szeretném megköszönni családomnak és barátaimnak a szakszerű hibaellenőrzést, valamint a rengeteg támogatást, amit képzésem ideje alatt kaptam tőlük.
+
+
+% \appendix
+% \chapter{A futtatásokhoz tartozó MATLAB fájlok}\label{matlabkodok}
+\chapter*{Függelék}\label{fuggelek}
+\addcontentsline{toc}{chapter}{Függelék}  
+
+\section*{A futtatásokhoz tartozó MATLAB fájlok}\label{matlabkodok}
+\addcontentsline{toc}{section}{A futtatásokhoz tartozó MATLAB fájlok} 
+
+\lstinputlisting{\matlabpath/solve_2DPoi_for_multiple_rhs_utf8.m"}
+\lstinputlisting{\matlabpath/FEM_2DPoissonHomogenousDirichlet_utf8.m"}
+
+
+

@@ -1,0 +1,171 @@
+\section{Elliptikus feladatok megoldhatósága}\label{sec:elliptikus}
+
+
+A végeselem-módszer elméleti alapjainál a gyenge megoldás fogalmára és a Szoboljev-térbeli becslésekre támaszkodunk, ezért ebben a részben röviden ismertetjük  a Szoboljev-tereket, majd rátérünk a gyenge feladat fogalmára, és igazoljuk ennek megoldhatóságát bizonyos feltételek mellett. Az itt leírtak legtöbbször \acite{pdnm, besenyei} jegyzeteket követik. 
+
+
+Legyen $L$ a következő $\Omega$ korlátos tartományon értelmezett lineáris másodrendű elliptikus operátor:
+\begin{equation}\label{L_op}
+	Lu = -\Div\left(p \nabla u \right) + q u,
+\end{equation}
+ahol $p \in C^1(\bar{\Omega})$, $q \in C(\bar{\Omega})$, $ 0 < p(x) $ és  $ 0 \leq q(x) $ teljesül $(\forall x \in \Omega)$, és $u$ megfelelően sima függvény.  A továbbiakban feltesszük, hogy $\Omega \subset \R^d$, $d \geq 2$ és a $\partial\Omega$ perem szakaszonként sima és Lipschitz-folytonos.
+
+Az $L$ operátorra megfogalmazható a Dirichlet-feladat:
+\begin{definition}
+Legyen $g \in C(\partial\Omega)$. Keressük azt  $u \in C^2(\Omega) \bigcap C(\closure{\Omega})$ függvényt, amelyre:
+	\begin{equation}\label{dirichlet_problem}		
+		\left\{
+		\begin{aligned}
+			Lu &= f && \Omega \text{-ban}, \\
+			u &= g & &\partial\Omega \text{-n}.
+		\end{aligned}
+		\right.
+	\end{equation}
+	 Ha $g \equiv 0$ az $\Omega$ tartományon, akkor a feladatot homogénnek nevezzük, különben inhomogén feladatról beszélünk.
+\end{definition}
+
+
+\subsection{Szoboljev-terek}
+
+Először definiáljuk a $H^1(\Omega)$ és  $H^1_0(\Omega)$ Szoboljev-tereket, majd röviden ismertetjük a később felhasznált állításokat, bizonyítások nélkül. Az állítások bizonyításai és a Szoboljev-terek részletesebb bemutatása megtalálhatók a \cite{besenyei} könyvben.
+
+\begin{definition}
+	Azt mondjuk, hogy  $u \in H^1(\Omega)$, ha $u \in L^2(\Omega)$, és ha léteznek olyan $g_1, \ldots, g_d \in L^2(\Omega)$ függvények, hogy 
+	\begin{equation*}
+		\int_{\Omega} u  \, \partial_i \varphi = - \int_{\Omega} g_i \, \varphi ,
+	\end{equation*}
+	minden $\varphi \in C_0^{\infty}(\Omega)$ és $i = 1, \ldots, d$ esetén.
+	Ekkor az $u$ általánosított első parciális deriváltjait és gradiensét definiálhatjuk a következő képletekkel: 
+	\begin{align*}
+		\partial_i u &\coloneqq g_i, &
+		\grad u &\coloneqq  (\partial_i u, \ldots, \partial_i).
+	\end{align*}
+	A $H^1(\Omega)$ téren a skalárszorzat és az indukált norma:
+	\begin{align*}
+		\langle u, v \rangle_{H^1(\Omega)} &\coloneqq \int_{\Omega} uv + \grad u \cdot \grad v,&  
+		\| u \|_{H^1(\Omega)}^2 &\coloneqq \int_{\Omega} u^2 + |\grad u|^2.
+	\end{align*}
+\end{definition}
+
+
+\begin{definition}
+	Jelölje $H^1_0(\Omega)$ a $H^1$ tér megfelelő homogén peremfeltételt teljesítő alterét:
+	\begin{equation*}
+		H_0^1 \coloneqq \left\{u \in H^1(\Omega) : u|_{\partial\Omega} = 0 \right\},
+	\end{equation*}
+	ahol $ u|_{\partial\Omega}$ nyom-értelemben tekintendő. Ennek skalárszorzata a $H^1(\Omega)$-ból öröklődik.
+\end{definition}
+
+
+\begin{statement}
+	A $H^1(\Omega)$ és  $H^1_0(\Omega)$ terek a megadott skalárszorzatra nézve Hilbert-terek.
+\end{statement}
+
+A Szoboljev-terek egyik alapvető becslése a következő egyenlőtlenség:
+
+\begin{statement}[Poincaré-Friedrichs-egyenlőtlenség]\label{poin-fried}
+	Van olyan $C_{\Omega} > 0$ konstans, hogy
+	\begin{equation*}
+		\| u \|_{L^2(\Omega)} \leq C_{\Omega} \| \grad u \|_{L^2(\Omega)} \quad (\forall u \in H^1_0(\Omega)),
+	\end{equation*}
+	azaz
+	\begin{equation*}
+		\int_{\Omega} u^2 \leq  C_{\Omega} \int_{\Omega} | \grad u |^2.
+	\end{equation*}
+\end{statement}
+	
+
+\begin{corollary}
+	Az egyenlőtlenségből adódóan $H_0^1(\Omega)$-n a $H^1(\Omega)$-ból öröklöttel ekvivalens normát definiálhatunk:
+	\begin{equation*}
+		\| u \|_{H^1_0(\Omega)}^2 \coloneqq  \| \grad u \|_{L^2(\Omega)}^2 = \int_{\Omega} |\grad u|^2.
+	\end{equation*}
+	 Az ehhez tartozó skaláris szorzat:
+	\begin{equation*}
+		\langle u, v \rangle_{H^1_0(\Omega)} \coloneqq \int_{\Omega}  \grad u \cdot \grad v.
+	\end{equation*}
+	 A normák ekvivalenciája miatt $H_0^1(\Omega)$ az új skalárszorzatra nézve is Hilbert-tér.
+\end{corollary}
+
+
+
+\subsection{Gyenge feladat és megoldhatósága}
+
+A gyenge megoldás fogalmához tekintsük \aref({dirichlet_problem})  feladat homogén esetét. Alakítsuk át a feladatot úgy, hogy az  $Lu = f$ egyenletet szorozzuk egy  $v \in (H_0^1(\Omega)$ függvénnyel, és vegyük az integrálját $\Omega$-n, a kapott egyenletre pedig alkalmazzuk a Green-formulát. Az így kapott feladat értelmes akkor is, ha $H^1_0(\Omega)$-n keressük a megoldást. Ezek alapján megfogalmazható a gyenge homogén Dirichlet-feladat:
+
+\begin{definition}
+	 Azt mondjuk, hogy \aref({dirichlet_problem}) Dirichlet-feladat homogén esetének gyenge megoldása  az $u\in H^1_0(\Omega)$ függvény, ha teljesül a következő egyenlőség: 
+	\begin{equation}\label{gyenge_fealdat}
+		\int_{\Omega} \left( p \grad u \cdot \grad v + q u v \right) = \int_{\Omega} f v  \qquad (\forall v \in H^1_0(\Omega)).
+	\end{equation} 
+\end{definition}
+
+\begin{remark}\label{inhomogen}
+	Az inhomogén eset visszavezethető homogén esetre. Tekintsük \aref({dirichlet_problem}) inhomogén Dirichlet-feladatot és legyen $\tilde{g} \in H^1(\Omega)$, melyre $\tilde{g}|_{\partial\Omega} = g$ nyom értelemben. Ekkor a homogén segédfeladat gyenge alakja felírható a $z \coloneqq u-\tilde{g}$ függvényre, ahol $u$ az eredeti inhomogén feladat gyenge megoldása:
+	\begin{equation*}
+		\int_{\Omega} \left( p \grad z  \cdot  \grad v + q z v \right) = \int_{\Omega} \left( f v - p \grad \tilde{g}  \cdot  \grad v - q \tilde{g} v \right) \qquad (\forall v \in H^1_0(\Omega)).
+	\end{equation*}
+	Ha ebben a jobb oldali $\tilde{g}$-os tagokat balra rendezzük, megkapjuk \aref({dirichlet_problem}) inhomogén Dirichlet-feladat szokásos gyenge alakját: keressük azt az $u \in H^1(\Omega)$ függvényt, amelyre
+	\begin{equation*}
+		\int_{\Omega} \left( p \grad u \cdot \grad v + q u v \right) = \int_{\Omega} f v  \qquad (\forall v \in H^1_0(\Omega)), 
+	\end{equation*} 
+	és $u|_{\partial\Omega}=g$ nyom értelemben, azaz $u-\tilde{g} \in H^1_0(\Omega)$. A tesztfüggvények itt is homogén peremfeltételt teljesítenek, mint a homogén feladat esetében.
+\end{remark}
+
+
+
+A gyenge megoldás létezése és egyértelműsége a Hilbert-térbeli bilineáris formák segítségével a Lax-Milgram elmélettel igazolható. A következő tétel  bizonyítása megtalálható a \cite{numfunk} jegyzet II.7.2. részében.
+
+\begin{theorem}[Lax-Milgram-lemma]\label{lax-milgram}
+	Legyen $H$ valós Hilbert-tér, $a: H \times H \rightarrow \R$ korlátos (folytonos), koercív bilineáris forma, azaz tegyük fel, hogy $\exists M > 0$ és $m > 0$, melyre $|a(u,v)| \leq M \|u\|\|v\|$ és $a(u,u) \geq m \|u\|^2$ $(\forall u, v \in H)$. Ekkor bármely $l : H \rightarrow \R$ korlátos lineáris funkcionálhoz létezik egyetlen olyan $u \in H$, melyre
+	\begin{equation}\label{bilin_funk}
+		a(u,v) = l(v) \qquad (\forall v \in H).
+	\end{equation}
+\end{theorem}
+
+
+
+\Aref({gyenge_fealdat}) gyenge alakú feladat \aref({bilin_funk}) egyenlőség speciális esete:
+\begin{align}\label{variacio_funk}
+		a(u,v) &\coloneqq \int_{\Omega} (p \grad u \cdot \grad v + q u v)  ,&  l(v) &\coloneqq \int_{\Omega} f v,&  & u, v \in H^1_0(\Omega).		
+\end{align}
+
+
+Ha $p$ és $q$ függvények korlátosak, akkor az $a(u,v)$ bilineáris forma koercivitása és korlátossága a $p$ és $q$ függvények tulajdonságaiból adódnak.
+
+\begin{statement}
+	Legyen $p \in L^{\infty}(\Omega)$, $q \in L^{\infty}(\Omega)$ és $f \in L^2(\Omega)$. Ekkor \aref({gyenge_fealdat}) gyenge feladatnak létezik egyértelmű megoldása.
+\end{statement}
+
+\begin{proof}
+	
+	\Aref({variacio_funk})-ben definiált $a(u,v)$ formára teljesülnek \aref{lax-milgram} Lax-Milgram-lemma feltételei:
+	\begin{itemize}
+		\item $H^1_0(\Omega)$ valós Hilbert-tér.
+		\item A bilinearitás az integrálás tulajdonságaiból következik.
+		\item A korlátosság $p$ és $q$ korlátosságából, \aref{poin-fried}. Poincaré-Friedrichs-egynlőtlenségből, valamint a Cauchy–Bunyakovszkij–Schwarz-egyenlőtlenségből adódik:
+			\begin{align*}
+				|a(u,v)| &= \left| \int_{\Omega} (p \grad u \cdot \grad v + q u v)\right| 
+							\leq \left| \int_{\Omega}  p \grad u \cdot \grad v \right| + \left| \int_{\Omega}  q u v \right| \leq \\ 
+						% &\leq \|p\|_{L^{\infty}(\Omega)} \left|\langle \grad u, \grad v \rangle_{L^2(\Omega)} \right| + \|q\|_{L^{\infty}(\Omega)} \left|\langle u, v \rangle_{L^2(\Omega)} \right| \leq \\
+						&\leq \|p\|_{L^{\infty}(\Omega)} \| \grad u\|_{L^2(\Omega)} \| \grad v\|_{L^2(\Omega)} + \|q\|_{L^{\infty}(\Omega)} \underbrace{\| u\|_{L^2(\Omega)} \| v\|_{L^2(\Omega)} }_{\leq C_{\Omega}^2 \| \grad u\|_{L^2(\Omega)} \| \grad v\|_{L^2(\Omega)}} \leq\\
+						&\leq \underbrace{(\|p\|_{L^{\infty}(\Omega)} + \|q\|_{L^{\infty}(\Omega)} C_{\Omega}^2)}_{M} \| \grad u\|_{H^1_0(\Omega)} \| \grad v\|_{H^1_0(\Omega)},
+			\end{align*} 
+			ahol $C_{\Omega}$ Poincaré-Friedrichs konstans.
+		\item A koercivitás $p$ pozitivitása és $q$ nemnegativitása miatt teljesül. Mivel $p > 0$, és $\Omega$ korlátos, ezért $\exists m > 0 $, amelyre $p \geq m$. Ekkor:
+			\begin{equation*}
+				a(u,u) =  \int_{\Omega} (p |\grad u|^2 + q u^2) \geq m  \int_{\Omega} |\grad u|^2 = m  \cdot \|u\|_{H_0^1(\Omega)}^2.
+			\end{equation*}
+	\end{itemize}
+	Továbbá az  $f \in L^2(\Omega)$ feltételből következik, hogy $l$ korlátos lineáris funkcionál.
+	
+\end{proof}
+
+\begin{remark}\label{LM_alter}
+	\Aref{lax-milgram}. tétel alkalmazható akkor is, ha a $H_0^1({\Omega})$ Hilbert-tér helyett annak alterét tekintjük. Ezért ha \aref({gyenge_fealdat}) gyenge feladatot megszorítjuk  $H_0^1({\Omega})$ egy alterére, akkor is létezik egyértelmű megoldás, hiszen a tétel kritériumai igazak minden $u, v \in H_0^1({\Omega})$ függvényre, így az altérbeli $u$ és $v$ függvényekre is.
+\end{remark}
+
+\begin{remark}\label{szimm}
+	\Aref({variacio_funk})-ben definiált $a(u,v)$ bilineáris forma szimmetrikus is, szintén az integrálás tulajdonságai miatt. Ez nem feltétele a Lax-Milgram-lemma teljesülésének, ezért a gyenge feladat nemszimmetrikus esetben is megoldható lenne.
+\end{remark}
+

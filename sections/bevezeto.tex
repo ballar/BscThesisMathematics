@@ -1,0 +1,52 @@
+\chapter*{Bevezetés}
+\addcontentsline{toc}{chapter}{Bevezetés}  
+
+
+Valós folyamatok matematikai modellezésekor szeretnénk a valóságot minél jobban megközelíteni. A modell és modellezett folyamat közötti különbségeket általában két szempont szerint szokás vizsgálni: a kvantitatív (mennyiségi) vizsgálat a valós folyamat és a modell eredménye közötti eltérésre kíváncsi, a kvalitatív (minőségi) vizsgálat pedig a valós folyamatra jellemző tulajdonságok (pl. nemnegativitás vagy folytonosság) megmaradását  ellenőrzi. Ebben a dolgozatban az utóbbiról lesz szó. 
+  
+A parciális differenciálegyenletekkel leírható folyamatokhoz kapcsolódó legfontosabb kvalitatív tulajdonságok a  maximum-elvek, illetve azok következményei. Ezek közül is  leglényegesebb  a nemnegativitási tulajdonság, ugyanis sok olyan fizikai mennyiség van, ami nem vehet fel negatív értéket (pl. hőmérséklet Kelvinben, sűrűség), és ezt a tulajdonságot szeretnénk a folytonos matematikai modellre is átörökíteni. Mivel a legtöbb differenciálegyenlet csak numerikusan oldható meg, a numerikus modellektől is elvárjuk a folytonos modell kvalitatív tulajdonságaival ekvivalens tulajdonságok teljesülését.
+
+A természetben előforduló fizikai jelenségek matematikai modelljei sok esetben vezetnek elliptikus parciális differenciálegyenletekre. Ilyenek például az energia típusú mennyiségek minimalizálási feladatai, vagy a folytonos közeg áramlását leíró egyensúlyi egyenletek. Ezeknek fontos jellemzőjük, hogy időfüggetlenek, így a numerikus megoldási módszereik alapvetően különböznek a parabolikus vagy hiperbolikus parciális differenciálegyenletekre alkalmazható numerikus módszerektől.
+
+A dolgozatban a lineáris másodrendű elliptikus feladatokkal foglalkozunk, Dirichlet-peremfeltétel mellett. Tekintsük  $\Omega$ korlátos tartományon az
+\begin{equation*}
+	Lu = -\Div\left(p \nabla u \right) + q u
+\end{equation*}
+operátort, ahol $p \in C^1(\bar{\Omega})$, $q \in C(\bar{\Omega})$, $ 0 < p(x) $ és  $ 0 \leq q(x) $ teljesül $(\forall x \in \Omega)$. A Dirichlet-feladat ekkor $g \in C(\partial\Omega)$ esetén: keressük azt  $u \in C^2(\Omega) \bigcap C(\closure{\Omega})$ függvényt, amelyre:
+\begin{equation*}	
+	\left\{
+	\begin{aligned}
+		Lu &= f && \Omega \text{-ban}, \\
+		u &= g & &\partial\Omega \text{-n}.
+	\end{aligned}
+	\right.
+\end{equation*}
+
+
+
+\Aref{ch:elmelet}. fejezetben ismertetjük a fentebb definiált Dirichlet-feladat végeselemes diszkretizációjának elméleti alapjait. Ehhez megfogalmazzuk  a $H^1(\Omega)$ Szoboljev-téren a gyenge feladatot, és összefoglaljuk a feladat megoldhatóságához kapcsolódó eredményeket. Ezután rátérünk a gyenge feladat végeselemes közelítésére, és bemutatjuk a Garjorkin-módszerrel  egy $W_h \subset H^1(\Omega)$  véges dimenziós altérre redukált feladatot. A redukált feladatban az eredeti feladat megoldásának azt az $u_h \in W_h$  közelítését keressük, amelyre
+\begin{equation*}
+	\begin{aligned}
+		\int_{\Omega} \left( p \grad u_h \cdot \grad v_h + q u_h v_h \right) &= \int_{\Omega} f v_h,  \qquad (\forall v_h \in V_h ), \\
+		u_h-\tilde{g}_h &\in V_h ,
+	\end{aligned}
+\end{equation*}
+ahol  $V_h = W_h \cap H_0^1(\Omega)$ és $\tilde{g}|_{\partial\Omega} = g$ nyom értelemben, és $\tilde{g}_h$ a $\tilde{g}$ függvény  $W_h$-beli közelítése. Végül ismertetjük a végeselem-terekhez kapcsolódó fontosabb alapfogalmakat.
+
+Ezután \aref{ch:Maxelvek}. fejezetben rátérünk a maximum-elvekre. Először a folytonos maximum-elvet mutatom be annak következményeivel, majd kimondom a klasszikus diszkrét maximum-elvet, ami nempozitív $f \in L^2(\Omega)$ forrásfüggvények esetén a következő tulajdonságokat feltételezi az $u_h$ közelítő megoldásra:
+	\begin{equation*}
+		\max_{\closure{\Omega}} u_h \leq \max \{0, \max_{\partial\Omega} g_h\},
+	\end{equation*}
+	emellett, ha $q \equiv 0$, akkor
+	\begin{equation*}
+		\max_{\closure{\Omega}} u_h =  \max_{\partial\Omega} g_h,
+	\end{equation*}
+ahol $g_h$ a $g$ peremfeltétel $W_h$-beli polinomiális interpolációja. Ezután mutatunk a végeselemes rácsra vonatkozó elégséges tulajdonságot a klasszikus diszkrét maximum-elv teljesülésére lineáris végeselemes approximáció esetén. Az utolsó szakaszban az 1 dimenziós Poisson-egyenletet vizsgáljuk homogén Dirichlet-peremmel, és mutatunk  ellenpéldát a klasszikus diszkrét maximum-elv kiterjesztésére a magasabbrendű közelítések esetére. A példát elemezve megfogalmazzuk az általános diszkrét maximum-elvet a vizsgált feladatra. Ennek lényege, hogy az $f$ forrásfüggvény nempozitivitása helyett az $f_h \in V_h$ nempozitivitását tesszük fel, ahol $f_h$ az $f$ függvény $V_h$ végeselemes altérre vett $L^2$-vetülete. A dolgozatban az általános diszkrét maximum-elvet csak a speciális alakú nempozitivitási, illetve nemnegativitási elvként fogalmazzuk meg: $\forall f_h \leq 0$ esetén az $u_h \in V_h \subset H_0^1(\Omega)$ közelítő megoldásra 
+\begin{equation*}
+	\max_{\closure{\Omega}} u_h \leq 0
+\end{equation*}	
+teljesül. Az általános diszkrét maximum-elv teljesülésére mutatható elégséges feltétel magasabbrendű végeselemes közelítésekre is.
+
+ Végezetül \aref{ch:futtatas}. fejezetben egy konkrét példán keresztül mutatom be a klasszikus diszkrét maximum-elv teljesülését, és megvizgálom, hogy a forrásfüggvény változtatása hogyan befolyásolja az $u_h$ megoldás $0$-tól való eltérését. 
+
+ 

@@ -1,0 +1,184 @@
+\documentclass[a4paper,12pt]{report}
+
+\usepackage[T1]{fontenc}     % belső kódrendszer beállítása
+\usepackage[utf8]{inputenc}  % input kódolás
+\usepackage[magyar]{babel}   % nyelv
+\usepackage{lmodern}
+
+
+\usepackage{graphicx}
+% \usepackage[center]{subfigure}
+% \subfiglabelskip=0pt
+\usepackage{subcaption }
+\graphicspath{{./img/}}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{anysize}
+\usepackage{indentfirst}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{titlesec}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{nameref} 
+
+% listings
+\usepackage[dvipsnames]{xcolor}
+\usepackage{textcomp}
+\usepackage{listingsutf8}
+\lstset{inputencoding=utf8/latin1}
+
+\usepackage[numbered, framed ]{mcode} % autolinebreaks %MatLab code
+\newcommand{\matlabpath}{"./matlab}
+
+\usepackage{tikz}
+\usepackage{appendix}
+
+% \usepackage[ final ]{pdfpages}
+
+
+% \usepackage{wrapfig}
+% \usepackage{sidecap}
+% \usepackage{subfig}
+% \usepackage{latexsym}
+
+\pagestyle{plain}
+\marginsize{3.5cm}{2.5cm}{2.5cm}{2.5cm}
+\frenchspacing
+\sloppy % http://www.cs.bme.hu/~egmont/latex/
+\linespread{1.5}
+
+
+\hypersetup{
+  linkcolor  = red,
+  citecolor  = blue,
+  urlcolor   = blue,
+  colorlinks = true,
+}
+
+
+\newtheorem{theorem}{Tétel}%[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{statement}[theorem]{Állítás}
+\newtheorem{corollary}[theorem]{Következmény}
+\newtheorem{definition}[theorem]{Definíció}
+\newtheorem{remark}[theorem]{Megjegyzés}
+\newtheorem{example}[theorem]{Példa}
+\newtheorem{Fel}[theorem]{Feladat}
+\newenvironment{solution}{\noindent \textbf{Megoldás. }}{ $\clubsuit$}
+% \newenvironment{proof}{\noindent \textbf{Bizonyítás. }}{ $\square$}
+
+%\newcommand{\dif}{\mathrm{d}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\newcommand{\dd}{\,\mathrm{d}}
+\DeclareMathOperator{\Div}{div}
+\DeclareMathOperator{\grad}{\nabla}
+\DeclareMathOperator{\supp}{supp}
+
+\newcommand{\vr}[1]{\bm{#1}}
+\newcommand{\mx}[1]{\bm{#1}}
+
+% \newcommand{\overbar}[2][3]{{}\mkern#1mu\overline{\mkern-#1mu#2}}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+\newcommand{\closure}[1]{\overbar{#1}}
+\newcommand{\interior}[1]{\mathring{#1}}
+
+\title{Diszkrét maximum-elv végeselem-módszerre elliptikus parciális differenciálegyenleteken}
+\author{Balla Réka}
+\date{\today}
+
+\newenvironment{todo}{ \color{BurntOrange} \textbf{TODO}: \ }{}
+
+
+
+\begin{document}
+
+\titleformat{\chapter}
+  {\normalfont\LARGE\bfseries}{\thechapter.}{1em}{}
+\titlespacing*{\chapter}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+
+\thispagestyle{empty}
+% \maketitle
+\input{borito}
+
+\newpage
+
+\thispagestyle{empty}
+\input{Kivonat.tex}
+
+\newpage
+
+\pagenumbering{roman}
+
+\tableofcontents
+
+\newpage
+\pagenumbering{arabic}
+
+
+
+
+\input{sections/bevezeto}
+
+\input{sections/ch_Elmelet}
+\input{sections/elliptikus}
+\input{sections/fem}
+
+\input{sections/ch_Maxelvek}
+\input{sections/cmp}
+\input{sections/classical_dmp}
+\input{sections/general_DMP}
+
+\input{sections/ch_Futtatasok}
+\input{sections/appendix}
+
+
+
+\begin{thebibliography}{9}
+	
+	\bibitem{pdnm}
+		Horváth Róbert, Izsák Ferenc, Karátson János. Parciális differenciálegyenletek numerikus módszerei számítógépes alkalmazásokkal. Elektronikus jegyzet, Eötvös Loránd Tudományegyetem, 2013.
+
+	\bibitem{kar-kor}
+		J. Karátson, S. Korotov. Discrete maximum principles for finite element solutions of nonlinear elliptic problems with mixed boundary conditions. Numer. Math., 99: 669–698, 2005.
+
+	\bibitem{besenyei} 
+		Besenyei Ádám, Komornik Vilmos, Simon László. Parciális differenciálegyenletek. Elektronikus jegyzet, Typotex, 2013.
+	 
+	\bibitem{ciarlet-raviart}
+		 P. G. Ciarlet, P. A. Raviart. Maximum principle and uniform convergence for the finite element method. Comput. Methods Appl. Mech. Engrg., 2: 17–31, 1973.
+
+	\bibitem{sol-vej}
+		Pavel Šolín, Tomáš Vejchodský. A weak discrete maximum principle for hp-FEM. Journal of Computational and Applied Mathematics, 209: 54–65, 2007.
+
+	\bibitem{sol-seg}
+		P. Šolín, K. Segeth, I. Doležel. Higher-order Finite Element Methods. Chapman \& Hall/CRC Press, Boca Raton, 2003.
+		
+	\bibitem{gilbarg}
+		D. Gilbarg, N. S. Trudinger. Elliptic Partial Differential Equations of Second Order. Springer, Berlin - Heidelberg - New York - Barcelona - Hong Kong - London - Milan - Paris - Singapore - Tokyo, 2001.
+
+	\bibitem{stoyan2}
+		Stoyan Gisbert, Takó Galina. Numerikus módszerek 2. ELTE - Typotex, Budapest, 1995.
+	
+	\bibitem{stoyan3}
+		Stoyan Gisbert, Takó Galina. Numerikus módszerek 3. ELTE - Typotex, Budapest, 1997.
+		
+	
+	\bibitem{numfunk} 
+		Karátson János. Numerikus funkcionálanalízis. Elektronikus jegyzet, Typotex, 2013.	
+		
+	\bibitem{varga}
+		R. Varga. Matrix iterative analysis. Prentice Hall, New Jersey, 1962.
+		
+		
+	
+\end{thebibliography}
+
+
+
+\end{document}

@@ -1,0 +1,199 @@
+\section{Klasszikus diszkrét maximum-elv szakaszonként lineáris elemekre}\label{sec:classical_DMP}
+
+Ebben a szakaszban bemutatjuk a klasszikus diszkrét maximum-elvet. A tétel a szakaszonként lineáris függvényekkel való végeselemes approximációnál a tartomány felosztásának szögeire tett feltétel mellett teljesül. Azonban \aref{sec:general_DMP}. fejezetben látni fogjuk, hogy a magasabb fokú végeselemes közelítések (hp-FEM) esetén már egy dimenziós tartományon is van ellenpélda. 
+
+% [Klasszikus diszkrét maximum-elv inhomogén Dirichlet-feladatra]
+\begin{definition}\label{cDMP}
+	\Aref({inhom_vetegy}) inhomogén Dirichlet-feladat kielégíti a klasszikus diszkrét maximum-elvet, ha  $\forall f \leq 0$ esetén az $u_h$ megoldásra teljesül:
+	\begin{equation}\label{eq:cDMP_alt}
+		\max_{\closure{\Omega}} u_h \leq \max \{0, \max_{\partial\Omega} g_h\},
+	\end{equation}
+	emellett, ha $q \equiv 0$, 
+	% és a $W_h$ bázisfüggvényeire teljesül, hogy $\sum_{j = 1}^{n+m}\varphi_{j} \equiv const $ az $\closure{\Omega}$-n, 
+	akkor
+	\begin{equation}\label{eq:cDMP_alt_0q}
+		\max_{\closure{\Omega}} u_h =  \max_{\partial\Omega} g_h.
+	\end{equation}
+	A fenti kifejezésekben $g_h$ a g peremfeltétel $W_h$-beli polinomiális interpolációja.
+\end{definition}
+
+A következőkben elégséges feltételt mutatunk a klasszikus diszkrét maximum-elv teljesülésére a szakaszonként lineáris végeselemek alkalmazás esetén.
+
+\subsection{Mátrix maximum-elv}
+
+Először fogalmazzuk meg az inhomogén Dirichlet-feladathoz tartozó lineáris egyenletrendszer szintjén a maximum-elvet. A következő szakaszban látni fogjuk, hogy lineáris végeselemek alkalmazásakor a mátrixokra megfogalmazott maximum-elv teljesülése elégséges feltételt szolgáltat \aref{cDMP}. klasszikus maximum-elv teljesülésére.
+
+\begin{definition}\label{irrdiagdomdef}
+	Az  $n$ dimenziós négyzetes $\mx{M} = (m_{ij})_{i,j=1}^n$ mátrixot irreducibilisen diagonálisan dominánsnak nevezzük, ha kielégíti a következő feltételeket:
+	\begin{enumerate}[label=(\alph*)]
+		\item $\mx{M}$ irreducibilis, azaz $\forall i \neq j$ esetén létezik $\mx{M}$ elemeinek egy nemnulla $ \{m_{i,i_1}, m_{i_1,i_2}, \ldots, m_{i_s,j} \}$ sorozata, ahol $i, i_1, \ldots, i_s, j$ különböző indexek,\label{irredfelt}
+		\item $\mx{M}$ diagonálisan domináns, azaz  \label{diagdomfelt}
+			\begin{equation*}
+				|m_{i,i}| \geq \sum_{\substack{j = 1 \\ j \neq i}}^n |m_{i,j}|, \quad i = 1, \ldots, n,
+			\end{equation*}
+		\item $\mx{M}$-nek legalább az egyik sora szigorúan diagonálisan domináns, azaz $\exists i_0 \in \{1, \ldots, n\}$, melyre \label{szigdiagdomfelt}
+			\begin{equation*}
+				|m_{i_0,i_0}|  > \sum_{\substack{j = 1 \\ j \neq i_0}}^n |m_{i_0,j}|
+			\end{equation*}
+	\end{enumerate}
+\end{definition}
+
+\begin{theorem}\label{poz_inverz_tetel}
+	Ha az  $n$ dimenziós négyzetes $\mx{M} = (m_{ij})_{i,j=1}^n$ mátrix irreducibilisen diagonálisan domináns,  $m_{ij} \leq 0$, ha $i \neq j$ és $m_{ii} > 0$ minden $i = 1, \leq, n$ esetén, akkor $\mx{M}^{-1} > 0$.
+\end{theorem}
+
+A tétel bizonyítása megtalálható \cite{varga} 85. oldalán. 
+ 	
+\begin{theorem}[Mátrix maximum-elv]\label{mx_max_tetel}
+	Tekintsük \aref({inhom_mx_def}) pontban definiált $\mx{\widehat{A}_h} = (a_{ij})_{i,j=1}^{n+m} \in \R^{(n+m) \times (n+m)}$ mátrixot és $\vr{\widehat{c}_h} = (c_1, \ldots, c_{n+m})^T \in \R^{n+m}$ vektort. Tegyük fel, hogy $\mx{\widehat{A}_h}$-ra teljesülnek a következő feltételek:
+	\begin{enumerate}[label=(\roman*)]
+		\item $a_{ii} > 0, \quad i = 1, \ldots, n$,\label{A_diag_poz}
+		\item $a_{ij} \leq 0, \quad i = 1, \ldots, n,\, j = 1, \ldots, n+m,\, i \neq j$,
+		\item $\displaystyle \sum_{j = 1}^{n+m} a_{ij} \geq 0,  \quad i = 1, \ldots, n$, \label{nemneg_sorosszeg}
+		\item $\mx{A_h}$ ireducibilisan diagonálisan domináns.\label{A_irreddd}
+	\end{enumerate}
+	Ekkor ha a $\vr{\widehat{c}_h}$ olyan, hogy $(\mx{\widehat{A}_h} \vr{\widehat{c}_h})_i \leq 0 $, minden $i = 1, \ldots, n$, akkor
+	\begin{equation}\label{eq:cDMP_mx}
+		\max_{ 1 \leq i \leq n+m} c_i \leq \max \left\{0, \max_{n+1 \leq i \leq n+m} c_i \right\},
+	\end{equation}
+	és ha ezen felül 
+	\begin{equation}\label{eq:nullsorosszeg_felt}
+		\sum_{j = 1}^{n+m} a_{ij} = 0,  \quad i = 1, \ldots, n
+	\end{equation}
+	is teljesül, akkor
+	\begin{equation}\label{eq:cDMP_mx_0q}
+		\max_{1 \leq i \leq n+m} c_i =  \max_{n+1 \leq i \leq n+m} c_i .
+	\end{equation}
+\end{theorem}
+
+\begin{proof} \cite{kar-kor}
+	Tekintsük a $\vr{\widehat{c}_h}$ vektor kövektező felbontását: $\vr{\widehat{c}_h} = (\vr{c_h} ,\vr{g_h})^T $, ahol $\vr{c_h} = (c_1, \ldots, c_{n})^T$ és $\vr{g_h} = (c_{n+1}, \ldots, c_{n+m})^T$. Tegyük fel, hogy $\mx{A_h}\vr{c_h} + \mx{\tilde{A}_h} \vr{g_h} \leq 0 \in \R^n$. Ekkor azt kapjuk, hogy $\vr{c_h} \leq -\mx{A_h}^{-1} \mx{\tilde{A}_h} \vr{g_h}$, ahol az $ - \mx{A_h}^{-1} \mx{\tilde{A}_h}$ mátrix nemnegatív, hiszen a tétel feltevései és \aref{poz_inverz_tetel}. tétel miatt $\mx{A_h}^{-1} > 0$ és $\mx{\tilde{A}_h} \leq 0$. 
+	
+	Legyen  $\vr{1} = (1, \ldots, 1)^T \in \R^n$ és  $ \vr{\tilde{1}} = (1, \ldots, 1)^T \in \R^m$. Ekkor \ref{nemneg_sorosszeg} miatt $\mx{A_h}\vr{1} + \mx{\tilde{A}_h}\vr{\tilde{1}} \geq 0 \in \R^n$, azaz $\vr{1} \geq - \mx{A_h}^{-1} \mx{\tilde{A}_h} \vr{\tilde{1}}$.
+	
+	Az előzőekből adódóan   $\vr{c_h}$ vektor felülről becsülhető:
+	\begin{align*}	
+		\vr{c_h} &\leq -\mx{A_h}^{-1} \mx{\tilde{A}_h} \vr{g_h} \leq \max \left\{0, \max_{n+1 \leq i \leq n+m} c_i \right\}  (- \mx{A_h}^{-1} \mx{\tilde{A}_h} \vr{\tilde{1}}) \leq \\
+		&\leq \max \left\{0, \max_{n+1 \leq i \leq n+m} c_i \right\} \vr{1},
+	\end{align*}
+	amiből \eqref{eq:cDMP_mx} következik.
+	
+	Ha \aref({eq:nullsorosszeg_felt}) feltétel teljesül, azt felhasználva $\mx{A_h}\vr{1} + \mx{\tilde{A}_h}\vr{\tilde{1}} = 0 \in \R^n$, tehát $\vr{1} = - \mx{A_h}^{-1} \mx{\tilde{A}_h} \vr{\tilde{1}}$ adódik. A $\vr{c_h}$ vektor felső becslésénél az egyenlőség miatt elhagyhatjuk a nemnegativitási feltételt:
+	\begin{equation*}
+		\vr{c_h} \leq -\mx{A_h}^{-1} \mx{\tilde{A}_h} \vr{g_h} \leq \left( \max_{n+1 \leq i \leq n+m} c_i \right) (- \mx{A_h}^{-1} \mx{\tilde{A}_h} \vr{\tilde{1}}) = \left( \max_{n+1 \leq i \leq n+m} c_i \right)\vr{1},
+	\end{equation*}
+	és ebből következik  \eqref{eq:cDMP_mx_0q}.	
+\end{proof}
+
+\begin{remark}\label{rem:qqphi_felt}
+	Abban az esetben, ha $q \equiv 0$, akkor  $a(1,\varphi_i) = 0$ teljesül minden $i = 1, \ldots, n$ esetén. Ha ezen felül a bázisfüggvényekre $\sum_{j = 1}^{n+m}\varphi_{j} \equiv 1 $ teljesül $\closure{\Omega}$-n, akkor minden $i = 1, \ldots, n$ esetén teljesül \aref{mx_max_tetel}. tételbeli \eqref{eq:nullsorosszeg_felt} feltétel, ugyanis:
+	\begin{equation*}
+		\sum_{j = 1}^{n+m} a(\varphi_j,\varphi_i) = a\left( \left( \sum_{j = 1}^{n+m}\varphi_{j}\right), \varphi_i \right) = a(1,\varphi_i) = 0.
+	\end{equation*}
+\end{remark}	
+
+\begin{remark}
+	\Aref{mx_max_tetel}. tételben \aref({eq:nullsorosszeg_felt}) állítás a $g \leq 0$ esetben magába foglalja a nempozitivitási tulajdonságot, ugyanis ekkor $c_i \leq 0, i = n+1, \ldots ,n+m$, amiből az állítás miatt:
+	\begin{equation*}
+		\max_{1 \leq i \leq n+m} c_i \leq 0.
+	\end{equation*}
+\end{remark}	
+	
+\begin{remark}
+	\Aref{mx_max_tetel}. tételből adódóan homogén Dirichlet-feladat esetén szintén teljesül a nempozitivitási feltétel. Ebben az esetben  $c_i = 0, i = n+1, \ldots ,n+m$, ezért \aref({inhom_ler})-beli $\mx{A_h}\vr{c_h} + \mx{\tilde{A}_h} \vr{g_h} = \vr{b_h}$ lineáris egyenletrendszer \aref({lin_rsz})-ben adott $\mx{A_h}\vr{c_h} = \vr{b_h}$ alakra redukálódik, ahol $\mx{A_h}$ \ref{A_irreddd} miatt irreducibilisen diagonálisan domináns. Az $(\mx{A_h}\vr{c_h})_i \leq 0, i = 1, \ldots, n$ feltételből ekkor
+	\begin{equation*}
+		\max_{1 \leq i \leq n} c_i \leq 0
+	\end{equation*}
+	adódik, ami analóg a tételbeli \eqref{eq:nullsorosszeg_felt} állítással.
+\end{remark}	
+
+\begin{remark}
+	\Aref{mx_max_tetel}. tétel \eqref{eq:cDMP_mx} és  \eqref{eq:cDMP_mx_0q} állításai analóg diszkrét megfogalmazásai  \aref{cDMP}. klasszikus maximum-elv \eqref{eq:cDMP_alt} és \eqref{eq:cDMP_alt_0q} állításainak. 
+\end{remark}	
+
+
+
+
+
+\subsection{A lineáris végeslemekre tett elégséges kikötések}
+
+Ebben a részben először megmutatjuk, hogy a \ref{ddpelda}. példában bemutatott $\mathbf{T_{d+1}^d}$ végeselemek alkalmazásakor a mátrix maximum-elv teljesülése elégséges feltétel a klasszikus maximum-elvre, ezután pedig elégséges feltételt mutatunk a mátrix maximum-elv, és így a klasszikus maximum-elv teljesülésére. Az itt bemutatott eredményekkel  pl. \cite{ciarlet-raviart} foglalkozik.
+
+Lineáris végeselemes közelítés esén $\forall T_k \in \mathcal{T}_h$ elemre $u_h|_{T_k}$ lineáris, ezért $u_h|_{T_k}$ csak a $T_k$ elem csúcsaiban veheti fel maximumát. Így elegendő \aref{cDMP}. klasszikus maximum-elvet az $u_h$ függvény rácscsomópontokban felvett értékeire igazolnunk.
+
+Tekintsük az $\Omega \in \R^d$ poliéder tartomány egy $\mathcal{T}_h = \{ T_1, \ldots, T_M \}$  triangulációját, melynek elemei nem elfajuló $d$-szimplexek. Legyenek  $B_i, i=1, \ldots, n+m$ a csúcsok $\mathcal{T}_h$-ban, ahol $B_i$ az $i=1, \ldots, n$ indexekre a belső csúcsokat, $i = n+1, \ldots, n+m$ indexekre pedig a $\partial\Omega$-n lévő csúcsokat jelöli. Legyen $W_h$  a szakaszonként lineáris függvények tere, ahol  bázist alkotnak a $\varphi_i(B_j) = \delta(i,j), \,  i,j=1, \ldots, n+m$  feltétellel definiált függvények. Ekkor az $u_h \in W_h$ közelítésnek a peremen felvett értékei: $c_{n+j} = g_j = g(B_{n+j})$, ha $ j = 1, \ldots, m$. Keressük az $u_h$ megoldásnak a  belső csúcsokhoz tartozó $c_1, \ldots, c_n$  értékeit.
+
+Az $f \leq 0$ feltételből lineáris esetben következik $(\mx{\widehat{A}_h} \vr{\widehat{c}_h})_i \leq 0 $, minden $i = 1, \ldots, n$ esetén, mert $ \varphi_i \geq 0, \, (i = 1, \ldots, n)$, és így $l(\varphi_i) \leq 0 \, (i = 1, \ldots, n)$ teljesül. \Aref{sec:general_DMP} fejezetben látni fogjuk, hogy  magasabbrendű végeselemes közelítések esetén $f$ nempozitivitásából nem következik a jobboldal nempozitivitása, ezért ezekben az esetekben más feltételhez kell kötnünk a maximum-elv teljesülését.
+
+Lineáris esetben a  bázisra a $\sum_{j = 1}^{n+m}\varphi_{j} \equiv 1 $   teljesül, így \aref{rem:qqphi_felt}. megjegyzés miatt $q \equiv 0$ feltételből következik  \aref{mx_max_tetel}. tételbeli \eqref{eq:nullsorosszeg_felt} feltétel, azaz ekkor a merevségi mátrix minden sorösszege $0$.
+
+A fentiek alapján lineáris végeselemes approximációnál, ha az $\mx{\widehat{A}_h}$ merevségi mátrixra \aref{mx_max_tetel}. tételben adott  \ref{A_diag_poz}-\ref{A_irreddd} feltételek teljesülnek, akkor \aref{cDMP}. klasszikus maximum-elv is teljesül az inhomogén Dirichlet-feladatra. Ezen feltételek biztosítására szintén van elégséges feltétel. Ekkor a trianguláció megfelelő finomsága mellett a rácsra tett szögfeltétellel biztosíthatók az  $\mx{\widehat{A}_h}$ merevségi mátrix megfelelő tulajdonságai.
+
+Tekintsünk egy $T_k \in \mathcal{T}_h$ $d$-szimplexet. Jelölje $\hat{B_r}, \, r = 1, \ldots, d+1$ a csúcsait, és legyenek  $\hat{\varphi_r}, \, r = 1, \ldots, d+1$ a megfelelő bázisfüggvények megszorításai $T_k$-ra. Ekkor tehát $\hat{\varphi_r}(\hat{B_s}) = \delta(r,s), $ minden $ r,s = 1, \ldots, d+1$ esetén. A bevezetett jelölések segítségével definiálhatjuk a $T_k$ elem egy jellemző paraméterét:
+\begin{equation*}
+	\sigma(T_k) \coloneqq  \max_{\substack{1 \leq r,s \leq d+1 \\ r \neq s}}\{  \cos (\grad \hat{\varphi_r}, \grad \hat{\varphi_s}) \}.	
+\end{equation*}
+Ekkor a $\mathcal{T}_h $ trianguláció jellemezhető  a következő paraméterekkel: 
+\begin{align*}
+	 h &=  \max_{T_k \in \mathcal{T}_h} diam(T_k),	\\	
+	 \sigma(h) &\coloneqq  \max_{T_k \in \mathcal{T}_h} \sigma(T_k),		
+\end{align*}
+ahol $h$ megegyezik a korábban \ref{def:finomság}. pontban definiált finomsággal. 
+
+\begin{statement}\label{cDMP_telj}
+	Tekintsük a $\mathcal{T}_h$ triangulációk egy sorozatát, ahol $h \rightarrow 0$. Ekkor \aref{cDMP}. klasszikus maximum-elv teljesül, ha 
+	\begin{align}
+		&\exists \sigma_0 > 0 \text{ úgy, hogy } \sigma(h) \leq -\sigma_0 < 0 \, (\forall h), \label{szogfelt} \\
+		& h  \text{ elegendően kicsi} \label{hfelt}
+	\end{align}
+\end{statement}
+
+% \{\interior{T_k}: T_k \in \mathcal{T}_h, valamint T_k csúcsai közt szerepel B_i és B_j\}
+
+\begin{proof}
+	Az előzőek alapján  \aref{cDMP}. klasszikus maximum-elv teljesüléséhez elég belátni, hogy az $\mx{\widehat{A}_h} = (a_{ij})_{i,j=1}^{n+m}$ merevségi mátrixra igazak \aref{mx_max_tetel}. tételben adott  \ref{A_diag_poz}-\ref{A_irreddd} feltételek. 
+	\begin{enumerate}[label=(\roman*)]
+		\item Az $a(.,.)$ bilineáris forma koercivitása miatt $a_{ii} = a(\varphi_i,\varphi_i) > 0, \forall i = 1, \ldots, n$.
+		\item Tegyük fel, hogy \eqref{szogfelt} teljesül, és $i \neq j$. Definiáljuk $\Omega_{ij} \coloneqq   \supp \varphi_i \cup \supp \varphi_j$ tartományt. Ekkor az $a(\varphi_i,\varphi_i)$ bilineáris forma az $\Omega \setminus \Omega_{ij}$ tartományon $0$, ezért:
+			\begin{align*}
+				a_{ij} &= a(\varphi_j,\varphi_i) =  \int_{\Omega_{ij}} \left( p \grad \varphi_j \cdot \grad \varphi_i  + q \varphi_j \varphi_i \right) = \\
+				&= \sum_{T_k \in \Omega_{ij}} \int_{T_k} \left( p \grad \varphi_j \cdot \grad \varphi_i  + q \varphi_j \varphi_i \right).
+			\end{align*}
+			
+			Rögzítsünk egy $T_k \in \Omega_{ij}$ elemet. A $p$ alulról korlátos, jelölje az alsó korlátját $m$. Ekkor
+			\begin{align*}
+				 &\int_{T_k} \left( p \grad \varphi_j \cdot \grad \varphi_i  + q \varphi_j \varphi_i \right) \leq \\ 
+				 \leq  &m \sigma(h) \int_{T_k} \underbrace{|\grad \varphi_j|}_{\geq \frac{1}{h}} \underbrace{|\grad \varphi_i|}_{\geq \frac{1}{h}}   + \|q\|_{L^{\infty}(\Omega)} \int_{T_k} \underbrace{\varphi_j}_{\leq 1} \underbrace{\varphi_i}_{\leq 1} \leq \\
+				 \leq &\left(-\frac{\sigma_0}{h^2} m + \|q\|_{L^{\infty}(\Omega)}\right)  \lambda(T_k) \leq 0,
+			\end{align*}
+			 ha $h$ elég kicsi, azaz \eqref{hfelt}. A $\lambda(T_k)$ a $T_k$ $d$-szimplex Lebesgue-mértékét jelöli. Vegyük észre, hogy ha $h$ elég kicsi, akkor $<$ reláció is teljesül, azaz $a_{ij} < 0$, ha $i = 1, \ldots, n, \, j = 1, \ldots, n+m, \, i \neq j$. 
+			 \label{szigpozbiz}
+		\item A bázisfüggvényekre $\sum_{j = 1}^{n+m}\varphi_{j} \equiv 1 $ teljesül, emiatt:
+			\begin{align*}
+				\sum_{j = 1}^{n+m} a_{ij} &= \sum_{j = 1}^{n+m} a(\varphi_j,\varphi_i) = \sum_{j = 1}^{n+m} \int_{\Omega} \left( p \grad \varphi_j \cdot \grad \varphi_i  + q \varphi_j \varphi_i \right) 	\\						
+				&=  \int_{\Omega}  p \grad \varphi_i \cdot \grad \underbrace{\left(\sum_{j = 1}^{n+m} \varphi_j \right)}_{\equiv 1}    + \int_{\Omega} q  \varphi_i \underbrace{\left(\sum_{j = 1}^{n+m} \varphi_j \right)}_{\equiv 1} 
+				= \int_{\Omega} \underbrace{q}_{\geq 0} \underbrace{\varphi_i}_{\geq 0}	\geq 0.
+			\end{align*}
+		\item  $\mx{A_h}$ irreducibilitása abból adódik, hogy tetszőleges $B_i, B_j$ csúcsokhoz, ahol $i \neq j$, van különböző csúcsoknak olyan $\{ B_i = B_{i_0}, B_{i_1}, \ldots, B_{i_s}= B_j \}$ sorozata, amelynek bármely két egymást követő $B_{i_r}, B_{i_{r+1}}, (0 \leq r \leq s-1)$ elemeihez tartozó $\varphi_{i_r}, \varphi_{i_{r+1}} $  bázisfüggvényekre $\supp \varphi_{i_r} \cap \supp \varphi_{i_{r+1}} \neq \emptyset$ teljesül. \Aref{szigpozbiz} pontban beláttuk, hogy megfelelően kicsi $h$ esetén $a_{ij} < 0$, ha $i \neq j$, ezért van olyan $h$, amivel $a_{i_r,i_{r+1}} < 0, (0 \leq r \leq s-1)$ teljesül. Ekkor tehát igaz \aref{irrdiagdomdef}-beli \ref{irredfelt} feltétel.
+
+			\Aref{irrdiagdomdef}-beli \ref{diagdomfelt} és \ref{szigdiagdomfelt} igazolásához tekintsük \ref{nemneg_sorosszeg} feltételt. Tegyük fel, hogy $h$ elegendően kicsi, és így $a_{ij} < 0$, ha $i = 1, \ldots, n, \, j = 1, \ldots, n+m, \, i \neq j$ . Ekkor tetszőleges $1 \leq i \leq n$ esetén
+			\begin{equation*}
+				\sum_{j = 1}^{n+m} a_{ij} = \underbrace{a_{i,i}}_{\substack {>0 \\ (i)-ből}} + \sum_{\substack {j = 1 \\ i \neq j}}^{n} \underbrace{a_{ij}}_{<0} + \sum_{j = n+1}^{n+m} \underbrace{a_{ij}}_{<0} = |a_{i,i}| - \sum_{\substack {j = 1 \\ i \neq j}}^{n} |a_{ij}| - \sum_{j = n+1}^{n+m} |a_{ij}| \geq 0.
+			\end{equation*}
+			Ezt átalakítva
+			\begin{equation*}
+				|a_{i,i}| - \sum_{\substack {j = 1 \\ i \neq j}}^{n} |a_{ij}| \geq \sum_{j = n+1}^{n+m} \underbrace{|a_{ij}|}_{> 0} > 0,
+			\end{equation*}
+			azaz 
+			\begin{equation*}
+				|a_{i,i}| > \sum_{\substack {j = 1 \\ i \neq j}}^{n} |a_{ij}|.
+			\end{equation*}
+			Tehát ekkor \aref{irrdiagdomdef}-beli   \ref{diagdomfelt} és  \ref{szigdiagdomfelt} feltétel is teljesül, ha $h$ elegendően kicsi.
+	\end{enumerate}
+\end{proof}
+
+\begin{remark}\label{2dszogfelt}
+	2D-ben \eqref{szogfelt} pontosan akkor teljesül, ha $\exists \epsilon > 0$ úgy, hogy $\forall h$-ra $\forall T_k \in \mathcal{T}_h$ háromszög minden $\alpha$ belső szögére $\alpha \leq \pi / 2 - \epsilon$ teljesül, azaz a végeselemes rács minden szöge egyenletesen hegyesszög. Abban az esetben, ha $q \equiv 0$, akkor $\epsilon = 0$ is megengedett, azaz a rácsban ekkor derékszögek is lehetnek.
+\end{remark}		
+
+

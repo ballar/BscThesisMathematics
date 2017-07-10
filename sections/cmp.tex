@@ -1,0 +1,74 @@
+\section{Folytonos maximum-elv}
+
+Az itt bemutatott maximum-elvnél erősebb állítás is megfogalmazható az $L$ operátorra, azonban a végeselemes-módszerre ez a változat terjeszthető ki. A folytonos maximu-elvekkel bővebben foglalkozik pl. \cite{gilbarg}.
+
+ 
+\Aref({L_op}) $L$ operátorra teljesül a következő tétel:
+
+\begin{theorem} [Maximum-elv az $L$ operátorra]\label{cmp}
+	Legyen $u \in C^2(\Omega) \cap C(\closure{\Omega})$, melyre $L u = f$ az $\Omega$ tartományon. Ha $f \leq 0$, akkor
+	\begin{equation}
+		\max_{\closure{\Omega}} u \leq \max \{0, \max_{\partial\Omega} u\},
+	\end{equation}
+	 és ha emellett $q \equiv 0$, akkor
+	\begin{equation}
+		\max_{\closure{\Omega}} u =  \max_{\partial\Omega} u .
+	\end{equation}
+\end{theorem}
+
+
+\begin{proof} \cite{kar-kor}
+	Legyen $v \in C^1(\closure{\Omega})$ és $v|_{\partial\Omega}=0$. Az $Lu$ kifejezést szorozzuk $v$-vel, és vegyük az integrálját $\Omega$-n. A Green-formula alkalmazásával az $L$ operátor divergencia-formáját kapjuk:
+	\begin{equation}
+	\label{div_form}
+		\int_{\Omega} \left( p \grad u \cdot \grad v + q u v \right) = \int_{\Omega} f v 
+	\end{equation}
+	
+	
+	Legyen $M \coloneqq \max \{0, \max_{\partial\Omega} u\}$, és definiáljuk $v$-t a következőképp: $v \coloneqq \max \{u-M,0\}$. Ekkor $v$ definíció szerint szakaszonként $C^2$-beli, $v \geq 0$ és $v|_{\partial\Omega} = 0$. Mivel $f \leq 0$, \aref({div_form}) integrál jobb oldala:  $\int_{\Omega} f v  \leq 0$. 
+	Jelölje $\Omega^{+} \coloneqq \{x \in \Omega : v(x) > 0\}$ halmazt. Ekkor az integrál $\Omega \setminus \Omega^{+}$-on 0, $\Omega^{+}$-on pedig $u = v + M$ adódik, így	
+	\begin{equation*}
+		0 \geq \int_{\Omega}  f v  = \int_{\partial\Omega} \left( p \grad u \cdot \grad v + q  u v \right) = \int_{\Omega^{+}} \left( p |\grad v|^2  + q  (v + M) v \right) \geq 0.
+	\end{equation*}	
+	Ebből $v$ konstans, és mivel $v|_{\partial\Omega} = 0$, így $v \equiv 0$, amiből $u \leq M$ adódik $\Omega$-n.
+	
+	Most tegyük fel, hogy $q = 0$. Mivel az integrálban ekkor a $q$-t tartalmazó tagok kiesnek, nem kell feltennünk, hogy $M \geq 0$. Legyen $M \coloneqq \max_{\partial\Omega} u$, $v$ pedig ugyanaz, mint az előző esetben. Ekkor a korábbiakhoz hasonlóan:	
+	\begin{equation*}
+		0 \geq \int_{\Omega} f v  = \int_{\partial\Omega}  p \grad u \cdot \grad v   = \int_{\Omega^{+}} p |\grad v|^2  \geq 0,
+	\end{equation*}	
+	amiből $v \equiv 0$ és $u \leq M$, így $\max_{\closure{\Omega}} u =  \max_{\partial\Omega} u$.
+\end{proof}
+
+\begin{corollary}[Maximum-elv Dirichlet-feladatra]\label{cmaxelv}
+	Legyen $u \in C^2(\Omega) \bigcap C(\closure{\Omega})$ \aref({dirichlet_problem}) feladat megoldása. Ha $f \leq 0$ $\Omega$-n, akkor
+	\begin{equation*}
+		\max_{\closure{\Omega}} u \leq \max \{0, \max_{\partial\Omega} g\},
+	\end{equation*}
+	 és ha $q \equiv 0$, akkor
+	\begin{equation*}
+		\max_{\closure{\Omega}} u =  \max_{\partial\Omega} g .
+	\end{equation*}
+\end{corollary}
+
+ Ebből azonnal következik a minimum-elv, ennek igazolásához elég $u$-t $-u$-val helyettesítenünk \eqref{dirichlet_problem}-ben.
+
+\begin{corollary}[Minimum-elv Dirichlet-feladatra]\label{cminelv}
+	Legyen $u \in C^2(\Omega) \bigcap C(\closure{\Omega})$ \aref({dirichlet_problem}) feladat megoldása. Ha $f \geq 0$ $\Omega$-n, akkor
+	\begin{equation*}
+		\min_{\closure{\Omega}} u \geq \min \{0, \min_{\partial\Omega} g\},
+	\end{equation*}
+	 és ha emellett $q \equiv 0$, akkor
+	\begin{equation*}
+		\min_{\closure{\Omega}} u =  \min_{\partial\Omega} g .
+	\end{equation*}
+\end{corollary}
+
+A maximum- és minimum-elvekből közvetlenül adódnak a nempozitivitási és nemnegativitási tulajdonságok. 
+
+\begin{corollary}[Nempozitivitási és nemnegativitási tulajdonság]
+	Legyen $u \in C^2(\Omega) \bigcap C(\closure{\Omega})$ \aref({dirichlet_problem}) feladat megoldása. Ha $f \leq 0$ és $g \leq 0$, akkor $u \leq 0$, illetve ha $f \geq 0$ és $g \geq 0$, akkor $u \geq 0$ is teljesül.
+\end{corollary}
+
+\begin{remark}
+	\Aref{cmp}. tétel és annak következményei kiterjeszthetők az $u \in H^1(\Omega)$ esetre, ha $u$ lényegében korlátos (azaz van olyan szám, ami majdnem mindenütt alsó/felső korlátja u-nak). Ekkor $\max{u}$ helyett a lényeges szuprémumot illetve infinumot kell vennünk \aref{cmp}. tételben, valamint \aref{cmaxelv}. és \ref{cminelv}. következményekben is $\closure{\Omega}$-n és $\partial\Omega$-n, továbbá \aref({dirichlet_problem}) feladatnál gyenge megoldást keresünk. 
+\end{remark}
